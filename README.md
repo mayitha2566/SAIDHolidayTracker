@@ -1,8 +1,8 @@
 ---
 
-# **Project Name**
+# **SA ID Holiday Checker**
 
-A brief description of your project.
+This is a Django web application that validates South African ID numbers, decodes embedded information like date of birth, gender, and citizenship status, and retrieves public holidays on the user's date of birth
 
 ## **Table of Contents**
 
