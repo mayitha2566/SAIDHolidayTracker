@@ -211,15 +211,7 @@ Include information about the project's license.
 
 - **Django Tenants Configuration:**
 
-  - \*\*
-
-SHARED_APPS
-
-:\*\* In your
-
-settings.py
-
-,
+  - \*\*SHARED_APPS:\*\* In your settings.py file,
 
 SHARED_APPS
 
@@ -239,11 +231,7 @@ includes:
     ]
     ```
 
-- \*\*
-
-TENANT_APPS
-
-:\*\* Contains tenant-specific apps:
+- \*\*TENANT_APPS:\*\* Contains tenant-specific apps:
 
     ```python
     TENANT_APPS = [
@@ -251,15 +239,7 @@ TENANT_APPS
     ]
     ```
 
-- \*\*
-
-TENANT_MODEL
-
-and
-
-TENANT_DOMAIN_MODEL
-
-:\*\*
+- \*\*TENANT_MODEL and TENANT_DOMAIN_MODEL:\*\*
 
     ```python
     TENANT_MODEL = "client.Client"
@@ -293,11 +273,7 @@ TENANT_DOMAIN_MODEL
 
 - **Static Files:**
 
-  - Static files settings in
-
-settings.py
-
-:
+  - Static files settings in settings.py:
 
     ```python
     STATIC_URL = 'static/'
@@ -330,9 +306,7 @@ directory:
 
 - **Environment Variables:**
 
-  - Use
-
-environ
+  - Use environ
 
 module to manage environment variables:
 
@@ -359,11 +333,7 @@ env("VARIABLE_NAME")
     CALENDARIFIC_API_KEY='your_calendarific_api_key'
     ```
 
-  - In
-
-settings.py
-
-, access the API key:
+  - In settings.py, access the API key:
 
     ```python
     CALENDARIFIC_API_KEY = env('CALENDARIFIC_API_KEY')
@@ -408,14 +378,6 @@ settings.py
 - **Static Files Not Loading:**
 
   - Ensure you have run `collectstatic`.
-  - Verify that the
-
-STATIC_ROOT
-
-and
-
-STATIC_URL
-
-settings are correctly configured.
+  - Verify that the STATIC_ROOT and STATIC_URL in settings are correctly configured.
 
 ---
