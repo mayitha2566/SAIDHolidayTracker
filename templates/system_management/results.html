@@ -1,0 +1,158 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Birthday Holiday Results</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="{% static 'css/results_styles.css' %}" rel="stylesheet">
+</head>
+<body class="bg-light">
+    <div class="container py-5">
+        {% if error_message %}
+        <div class="error-container">
+            <div class="alert alert-custom alert-danger" role="alert">
+                <div class="d-flex align-items-center">
+                    <div class="icon-circle text-danger">
+                        <i class="fas fa-exclamation-circle"></i>
+                    </div>
+                    <div>
+                        <h4 class="alert-heading mb-2">Oops! Something went wrong</h4>
+                        <p class="mb-0">{{ error_message }}</p>
+                    </div>
+                </div>
+                <hr>
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <a href="{% url 'home' %}" class="btn btn-outline-danger">
+                        <i class="fas fa-arrow-left me-2"></i>Try Again
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card mb-4">
+                    <div class="card-header p-4">
+                        <div class="d-flex align-items-center">
+                            <div class="icon-circle text-primary">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <h4 class="mb-0">ID Details</h4>
+                        </div>
+                    </div>
+                    <div class="card-body p-4">
+                        <div class="row g-4">
+                            <div class="col-md-6">
+                                <div class="card info-card h-100">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center mb-3">
+                                            <div class="icon-circle text-primary">
+                                                <i class="fas fa-calendar-alt"></i>
+                                            </div>
+                                            <h6 class="mb-0">Date of Birth</h6>
+                                        </div>
+                                        <p class="h5 mb-0">{{ said.date_of_birth|date:"j F Y" }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card info-card h-100">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center mb-3">
+                                            <div class="icon-circle text-primary">
+                                                <i class="fas {% if said.gender == 'male' %}fa-mars{% else %}fa-venus{% endif %}"></i>
+                                            </div>
+                                            <h6 class="mb-0">Gender</h6>
+                                        </div>
+                                        <p class="h5 mb-0">{{ said.gender|capfirst }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card info-card h-100">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center mb-3">
+                                            <div class="icon-circle text-primary">
+                                                <i class="fas fa-flag"></i>
+                                            </div>
+                                            <h6 class="mb-0">Citizenship</h6>
+                                        </div>
+                                        <p class="h5 mb-0">{{ said.is_citizen|yesno:"South African Citizen,Permanent Resident" }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card info-card h-100">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center mb-3">
+                                            <div class="icon-circle text-primary">
+                                                <i class="fas fa-search"></i>
+                                            </div>
+                                            <h6 class="mb-0">Search Count</h6>
+                                        </div>
+                                        <p class="h5 mb-0">{{ said.search_count }} {% if said.search_count == 1 %}time{% else %}times{% endif %}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header p-4">
+                        <div class="d-flex align-items-center">
+                            <div class="icon-circle text-primary">
+                                <i class="fas fa-gift"></i>
+                            </div>
+                            <h4 class="mb-0">Birthday Holidays</h4>
+                        </div>
+                    </div>
+                    <div class="card-body p-4">
+                        {% if holidays %}
+                            {% for holiday in holidays %}
+                            <div class="card holiday-card mb-3">
+                                <div class="card-body">
+                                    <h5 class="card-title text-primary">{{ holiday.name }}</h5>
+                                    <p class="card-text text-muted mb-3">{{ holiday.description }}</p>
+                                    <div class="d-flex flex-wrap gap-3">
+                                        <span class="badge bg-primary">
+                                            <i class="fas fa-calendar-day me-1"></i>
+                                            {{ holiday.date|date:"j F Y" }}
+                                        </span>
+                                        <span class="badge bg-secondary">
+                                            <i class="fas fa-tag me-1"></i>
+                                            {{ holiday.type }}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        {% else %}
+                            <div class="text-center py-5">
+                                <i class="fas fa-calendar-times fa-3x text-muted mb-3"></i>
+                                <h5 class="text-muted">No public holidays on your birthday</h5>
+                                <p class="text-muted mb-0">But that doesn't make your birthday any less special!</p>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="text-center mt-4">
+                    <a href="{% url 'home' %}" class="btn btn-primary btn-back">
+                        <i class="fas fa-arrow-left me-2"></i>
+                        Back to Search
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

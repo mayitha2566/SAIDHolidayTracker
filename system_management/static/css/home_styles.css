@@ -1,0 +1,40 @@
+body {
+  background-color: #f8f9fa;
+}
+.card {
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+.card-header {
+  background-color: #ffffff;
+  border-bottom: 1px solid #eee;
+  border-radius: 15px 15px 0 0 !important;
+}
+.form-control {
+  border-radius: 10px;
+  padding: 12px;
+  border: 1px solid #ced4da;
+}
+.form-control:focus {
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.15);
+}
+.btn-primary {
+  border-radius: 10px;
+  padding: 12px 30px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.btn-primary:disabled {
+  background-color: #6c757d;
+  border-color: #6c757d;
+}
+.id-icon {
+  color: #6c757d;
+  margin-right: 10px;
+}
+.loading {
+  display: none;
+  margin-left: 10px;
+}

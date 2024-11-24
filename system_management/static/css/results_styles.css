@@ -1,0 +1,54 @@
+body {
+  background-color: #f8f9fa;
+  color: #333;
+}
+.card {
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+.card-header {
+  background-color: #ffffff;
+  border-bottom: 1px solid #eee;
+  border-radius: 15px 15px 0 0 !important;
+}
+.info-card {
+  transition: transform 0.2s;
+}
+.info-card:hover {
+  transform: translateY(-5px);
+}
+.holiday-card {
+  border-left: 4px solid #007bff;
+  margin-bottom: 1rem;
+  transition: all 0.3s ease;
+}
+.holiday-card:hover {
+  transform: translateX(5px);
+}
+.btn-back {
+  border-radius: 10px;
+  padding: 12px 30px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.icon-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: rgba(0, 123, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 15px;
+}
+.error-container {
+  max-width: 500px;
+  margin: 100px auto;
+}
+.alert-custom {
+  border-radius: 15px;
+  border: none;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
