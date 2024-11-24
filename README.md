@@ -1,4 +1,3 @@
-
 ---
 
 # **Project Name**
@@ -36,7 +35,7 @@ Before you begin, ensure you have the following installed on your machine:
 1. **Clone the repository:**
 
    ```sh
-   git clone https://github.com/yourusername/yourproject.git
+   git clone https://github.com/mayitha2566/SAIDHolidayTracker.git
    cd yourproject
    ```
 
@@ -67,7 +66,8 @@ Before you begin, ensure you have the following installed on your machine:
 
    Follow the instructions on the [PostgreSQL website](https://www.postgresql.org/download/) to install PostgreSQL on your system.
 
-2. **Create a PostgreSQL database and user:**
+2. **Create a PostgreSQL database and user:  (only if didn't create the database and user)**
+
 
    Open the PostgreSQL shell or use a GUI tool like pgAdmin.
 
@@ -111,23 +111,11 @@ Before you begin, ensure you have the following installed on your machine:
 
 ## **Running Migrations**
 
-1. **Apply migrations to the shared apps:**
+1. **Apply migrations to the entire apps:**
 
    ```sh
-   python manage.py migrate_schemas --shared
+   python manage.py migrate
    ```
-
-   - **Note:** Since your project uses `django-tenants`, use `migrate_schemas --shared` to apply migrations to shared apps only.
-
-## **Creating Superuser**
-
-1. **Create a superuser for the public tenant:**
-
-   ```sh
-   python manage.py create_superuser
-   ```
-
-   - **Note:** This may require custom management commands if you need to create superusers for specific tenants.
 
 ## **Running the Server**
 
@@ -143,45 +131,15 @@ Before you begin, ensure you have the following installed on your machine:
 
 Since the project uses `django-tenants` for multi-tenancy, you need to create tenants and their associated domains.
 
-1. **Create the public tenant:**
+1. **Create a tenant:**
 
    ```sh
-   python manage.py shell
+   python manage.py create_tenant
    ```
 
-   In the shell:
-
-   ```python
-   from client.models import Client, Domain
-
-   # Create the public tenant
-   public_tenant = Client(schema_name='public', name='Public Tenant')
-   public_tenant.save()
-
-   public_domain = Domain()
-   public_domain.domain = 'localhost'  # For local development
-   public_domain.tenant = public_tenant
-   public_domain.is_primary = True
-   public_domain.save()
-   ```
-
-2. **Create additional tenants:**
-
-   ```python
-   # Create a new tenant
-   tenant = Client(schema_name='tenant1', name='Tenant 1')
-   tenant.save()
-
-   domain = Domain()
-   domain.domain = 'tenant1.localhost'  # Replace with your tenant domain
-   domain.tenant = tenant
-   domain.is_primary = True
-   domain.save()
-   ```
-
-   - **Note:** For local development with subdomains, you may need to adjust your `hosts` file or use a development tool that supports wildcard subdomains.
-
-## **Usage**
+   - **Note:** This command will prompt you to enter the tenant name and domain URL. eg:
+   tenant1.localhost
+   - **Note:** You can create multiple tenants by running the command multiple times.
 
 - **Access the public tenant:**
 
@@ -201,6 +159,7 @@ yourproject/
 │   ├── models.py          # Contains the Client and Domain models
 │   └── ...
 ├── system_management/     # Main Django app for your system
+|   ├── static/            # Static files
 │   ├── views.py           # Contains the views for the application
 │   ├── models.py          # Contains the SAID and Holiday models
 │   └── ...
@@ -252,19 +211,19 @@ Include information about the project's license.
 
 - **Django Tenants Configuration:**
 
-  - **
+  - \*\*
 
 SHARED_APPS
 
-:** In your 
+:\*\* In your
 
 settings.py
 
-, 
+,
 
 SHARED_APPS
 
- includes:
+includes:
 
     ```python
     SHARED_APPS = [
@@ -280,11 +239,11 @@ SHARED_APPS
     ]
     ```
 
-  - **
+- \*\*
 
 TENANT_APPS
 
-:** Contains tenant-specific apps:
+:\*\* Contains tenant-specific apps:
 
     ```python
     TENANT_APPS = [
@@ -292,28 +251,28 @@ TENANT_APPS
     ]
     ```
 
-  - **
+- \*\*
 
 TENANT_MODEL
 
- and 
+and
 
 TENANT_DOMAIN_MODEL
 
-:**
+:\*\*
 
     ```python
     TENANT_MODEL = "client.Client"
     TENANT_DOMAIN_MODEL = "client.Domain"
     ```
 
-  - **Database Router:**
+- **Database Router:**
 
-    ```python
-    DATABASE_ROUTERS = (
-        'django_tenants.routers.TenantSyncRouter',
-    )
-    ```
+  ```python
+  DATABASE_ROUTERS = (
+      'django_tenants.routers.TenantSyncRouter',
+  )
+  ```
 
 - **Database Configuration:**
 
@@ -334,7 +293,7 @@ TENANT_DOMAIN_MODEL
 
 - **Static Files:**
 
-  - Static files settings in 
+  - Static files settings in
 
 settings.py
 
@@ -345,19 +304,19 @@ settings.py
     STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
     ```
 
-  - Collect static files using:
+- Collect static files using:
 
-    ```sh
-    python manage.py collectstatic
-    ```
+  ```sh
+  python manage.py collectstatic
+  ```
 
 - **Templates Directory:**
 
-  - Templates are stored in the 
+  - Templates are stored in the
 
 templates
 
- directory:
+directory:
 
     ```python
     TEMPLATES = [
@@ -371,11 +330,11 @@ templates
 
 - **Environment Variables:**
 
-  - Use 
+  - Use
 
 environ
 
- module to manage environment variables:
+module to manage environment variables:
 
     ```python
     import environ
@@ -385,7 +344,7 @@ environ
     environ.Env.read_env()
     ```
 
-  - Access environment variables using 
+- Access environment variables using
 
 env("VARIABLE_NAME")
 
@@ -400,7 +359,7 @@ env("VARIABLE_NAME")
     CALENDARIFIC_API_KEY='your_calendarific_api_key'
     ```
 
-  - In 
+  - In
 
 settings.py
 
@@ -443,26 +402,20 @@ settings.py
 
     ```sh
     python manage.py makemigrations
-    python manage.py migrate_schemas --shared
+    python manage.py migrate
     ```
 
 - **Static Files Not Loading:**
 
   - Ensure you have run `collectstatic`.
-  - Verify that the 
+  - Verify that the
 
 STATIC_ROOT
 
- and 
+and
 
 STATIC_URL
 
- settings are correctly configured.
+settings are correctly configured.
 
 ---
-
-By following this README, you should be able to set up and run the Django project with PostgreSQL and multi-tenancy support using `django-tenants`. The instructions are tailored based on your provided 
-
-settings.py
-
-, ensuring consistency with your project configuration.

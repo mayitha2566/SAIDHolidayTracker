@@ -1,0 +1,5 @@
+django
+django-environ
+django_tenants
+psycopg2
+requests
